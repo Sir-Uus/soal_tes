@@ -77,13 +77,13 @@ class Program
         var newValues = new List<int>(values);
         if (newValues.Count >= 2)
         {
-            newValues[newValues.Count - 2] = 1;
-            newValues[newValues.Count - 1] = 2;
+            newValues[newValues.Count - 2] += 1;
+            newValues[newValues.Count - 1] += 1;
         }
         return newValues;
     }
 
-    // Fungsi untuk cek dan ubah angka genap
+    // Fungsi untuk cek dan ubah angka Genap
     static List<int> CekDanUbahGenap(List<string> huruf)
     {
         var values = huruf.Select(c => kamus.ContainsKey(c[0]) ? kamus[c[0]] : -1).ToList();
@@ -107,7 +107,7 @@ class Program
         var hasilLog5 = CekDanUbahGenap(hasilLog4.Split(' ').ToList());
 
         // Menampilkan hasil
-        Console.WriteLine($"1. Hasil no 1: {hasilKonversi}");
+        Console.WriteLine($"1. Hasil no 1: {hasilKonversi}"); //✔️
         Console.WriteLine($"2. Hasil no 2: {hasilOperasi}");
         Console.WriteLine($"3. Hasil no 3: {hasilHuruf}");
         Console.WriteLine($"4. Hasil no 4: {hasilLog4}");

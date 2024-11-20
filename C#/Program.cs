@@ -4,49 +4,16 @@ using System.Linq;
 
 class Program
 {
-    // Kamus yang berisi pasangan huruf dan angka
+    // Kamus
     static Dictionary<char, int> kamus = new Dictionary<char, int>
     {
-        { 'A', 0 }, { 'B', 1 }, { 'C', 1 }, { 'D', 1 }, { 'E', 2 }, { 'F', 3 },
-        { 'G', 3 }, { 'H', 3 }, { 'I', 4 }, { 'J', 5 }, { 'K', 5 }, { 'L', 5 },
-        { 'M', 5 }, { 'N', 5 }, { 'O', 6 }, { 'P', 7 }, { 'Q', 7 }, { 'R', 7 },
-        { 'S', 7 }, { 'T', 7 }, { 'U', 8 }, { 'V', 9 }, { 'W', 9 }, { 'X', 9 },
-        { 'Y', 9 }, { 'Z', 9 }, { 'a', 9 }, { 'b', 8 }, { 'c', 8 }, { 'd', 8 },
-        { 'e', 7 }, { 'f', 6 }, { 'g', 6 }, { 'h', 6 }, { 'i', 5 }, { 'j', 4 },
-        { 'k', 4 }, { 'l', 4 }, { 'm', 4 }, { 'n', 4 }, { 'o', 3 }, { 'p', 2 },
-        { 'q', 2 }, { 'r', 2 }, { 's', 2 }, { 't', 2 }, { 'u', 2 }, { 'v', 0 },
-        { 'w', 0 }, { 'x', 0 }, { 'y', 0 }, { 'z', 0 }, { ' ', 0 }
+        { 'A', 0 },{ 'B', 1 },{ 'C', 1 },{ 'D', 1 },{ 'E', 2 },{ 'F', 3 },{ 'G', 3 },{ 'H', 3 },{ 'I', 4 },
+        { 'J', 5 },{ 'K', 5 },{ 'L', 5 },{ 'M', 5 },{ 'N', 5 },{ 'O', 6 },{ 'P', 7 },{ 'Q', 7 },{ 'R', 7 },
+        { 'S', 7 },{ 'T', 7 },{ 'U', 8 },{ 'V', 9 },{ 'W', 9 },{ 'X', 9 },{ 'Y', 9 },{ 'Z', 9 },{ 'a', 9 },
+        { 'b', 8 },{ 'c', 8 },{ 'd', 8 },{ 'e', 7 },{ 'f', 6 },{ 'g', 6 },{ 'h', 6 },{ 'i', 5 },{ 'j', 4 },
+        { 'k', 4 },{ 'l', 4 },{ 'm', 4 },{ 'n', 4 },{ 'o', 3 },{ 'p', 2 },{ 'q', 2 },{ 'r', 2 },{ 's', 2 },
+        { 't', 2 },{ 'u', 2 },{ 'v', 0 },{ 'w', 0 },{ 'x', 0 },{ 'y', 0 },{ 'z', 0 },{ ' ', 0 }
     };
-
-    // Fungsi untuk mengubah angka menjadi huruf
-    static string AngkaKeHuruf(List<int> numbers)
-    {
-        var reverseKamus = kamus
-            .GroupBy(kvp => kvp.Value)
-            .ToDictionary(g => g.Key, g => g.First().Key);
-
-        return string.Join(" ", numbers.Select(num => reverseKamus.ContainsKey(num) ? reverseKamus[num].ToString() : ""));
-    }
-
-    // Fungsi untuk mengurai angka
-    static List<int> UraiKeAngka(int target)
-    {
-        var numbers = new List<int>();
-        int currentSum = 0;
-        int nextNumber = 0;
-
-        while (currentSum < target)
-        {
-            if (currentSum + nextNumber > target)
-            {
-                nextNumber = 0;
-            }
-            numbers.Add(nextNumber);
-            currentSum += nextNumber;
-            nextNumber++;
-        }
-        return numbers;
-    }
 
     // Fungsi untuk mengonversi kalimat menjadi angka
     static string Konversi(string sentence)
@@ -69,6 +36,39 @@ class Program
         }
 
         return result;
+    }
+
+    // Fungsi untuk mengurai angka
+    static List<int> UraiKeAngka(int target)
+    {
+        var numbers = new List<int>();
+        int currentSum = 0;
+        int nextNumber = 0;
+
+        while (currentSum < target)
+        {
+            if (currentSum + nextNumber > target)
+            {
+                nextNumber = 0;
+            }
+            numbers.Add(nextNumber);
+            currentSum += nextNumber;
+            nextNumber++;
+        }
+        return numbers;
+    }
+
+    // Fungsi untuk mengubah angka menjadi huruf
+    static string AngkaKeHuruf(List<int> numbers)
+    {
+        var reverseKamus = kamus
+            .GroupBy(kvp => kvp.Value)
+            .ToDictionary(g => g.Key, g => g.First().Key);
+
+        return string.Join(
+            " ",
+            numbers.Select(num => reverseKamus.ContainsKey(num) ? reverseKamus[num].ToString() : "")
+        );
     }
 
     // Fungsi untuk operasi transformasi angka
@@ -107,7 +107,7 @@ class Program
         var hasilLog5 = CekDanUbahGenap(hasilLog4.Split(' ').ToList());
 
         // Menampilkan hasil
-        Console.WriteLine($"1. Hasil no 1: {hasilKonversi}"); //✔️
+        Console.WriteLine($"1. Hasil no 1: {hasilKonversi}"); 
         Console.WriteLine($"2. Hasil no 2: {hasilOperasi}");
         Console.WriteLine($"3. Hasil no 3: {hasilHuruf}");
         Console.WriteLine($"4. Hasil no 4: {hasilLog4}");
